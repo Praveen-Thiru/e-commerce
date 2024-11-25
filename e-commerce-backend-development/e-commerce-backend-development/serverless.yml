@@ -1,0 +1,30 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: mukilan
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: siddha
+
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  memorySize: 1024
+  timeout: 6
+  iam: 
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:*
+          Resource: "*"
+  environment:
+    SECRET: 'quantumsharq'
+    JWT_EXPIRE: '24h'
+    JWT_REFRESHTOKEN_EXPIRE: '30d' 
+    
+
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - httpApi: "*"
+
